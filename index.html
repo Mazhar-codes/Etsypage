@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Made by Maks Creative Studio | Printable Coloring Books & Educational Workbooks</title>
+<meta name="description" content="Instant-download coloring books and educational workbooks for curious minds. Anime, superhero & fantasy coloring pages plus math, flags and geography workbooks — printable PDFs from Made by Maks Creative Studio.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: {
+            DEFAULT: '#0B1E3D',
+            50: '#eef1f7',
+            100: '#d6dce9',
+            700: '#122a52',
+            800: '#0e2244',
+            900: '#0B1E3D',
+            950: '#071531'
+          },
+          teal: {
+            DEFAULT: '#17BEB0',
+            50: '#eafbf9',
+            100: '#cdf5f0'
+          },
+          sunny: {
+            DEFAULT: '#FBBF24',
+            light: '#FDE68A'
+          },
+          cream: '#F8F4EA'
+        },
+        fontFamily: {
+          heading: ['Poppins', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          script: ['Caveat', 'cursive']
+        }
+      }
+    }
+  }
+</script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+  h1, h2, h3, h4, .font-heading { font-family: 'Poppins', sans-serif; }
+
+  /* Accordion animation */
+  .faq-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+  }
+  .faq-item.active .faq-panel {
+    max-height: 400px;
+  }
+  .faq-item.active .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-chevron { transition: transform 0.3s ease; }
+
+  /* Category tabs */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: grid; }
+  .tab-btn.active {
+    background-color: #0B1E3D;
+    color: #fff;
+  }
+
+  /* Decorative blob */
+  .blob {
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(60px);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* Book mockup tilt on hover */
+  .book-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+  .book-card:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 20px 40px -12px rgba(11,30,61,0.35); }
+
+  /* Mobile menu */
+  #mobile-menu { transition: max-height 0.3s ease; }
+</style>
+</head>
+
+<body class="bg-white text-navy-900 font-body antialiased">
+
+<!-- ============ NAVIGATION ============ -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-navy-100 shadow-sm">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="flex items-center justify-between h-18 py-2">
+      <a href="#home" class="flex items-center gap-3 shrink-0">
+        <img src="assets/logo.jpg" alt="Made by Maks Creative Studio logo" class="h-11 w-11 rounded-full object-cover border-2 border-navy-900/10">
+        <span class="font-heading font-bold text-lg sm:text-xl text-navy-900 leading-tight">
+          Made by <span class="text-teal">Maks</span>
+        </span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8 font-medium text-sm text-navy-900/80">
+        <a href="#home" class="nav-link hover:text-teal transition-colors">Home</a>
+        <a href="#coloring-books" class="nav-link hover:text-teal transition-colors">Coloring Books</a>
+        <a href="#workbooks" class="nav-link hover:text-teal transition-colors">Educational Workbooks</a>
+        <a href="#about" class="nav-link hover:text-teal transition-colors">About</a>
+        <a href="#faq" class="nav-link hover:text-teal transition-colors">FAQ</a>
+      </div>
+
+      <div class="hidden md:block">
+        <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 bg-teal hover:bg-teal-600 text-white font-heading font-semibold text-sm px-5 py-2.5 rounded-full shadow-md shadow-teal/30 hover:shadow-lg transition-all hover:-translate-y-0.5">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          Shop on Etsy
+        </a>
+      </div>
+
+      <button id="menu-toggle" class="md:hidden p-2 text-navy-900" aria-label="Toggle menu">
+        <i data-lucide="menu" class="w-7 h-7"></i>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden max-h-0 overflow-hidden">
+      <div class="flex flex-col gap-1 pb-5 pt-1 font-medium text-navy-900/90">
+        <a href="#home" class="nav-link py-2 px-2 rounded-lg hover:bg-cream">Home</a>
+        <a href="#coloring-books" class="nav-link py-2 px-2 rounded-lg hover:bg-cream">Coloring Books</a>
+        <a href="#workbooks" class="nav-link py-2 px-2 rounded-lg hover:bg-cream">Educational Workbooks</a>
+        <a href="#about" class="nav-link py-2 px-2 rounded-lg hover:bg-cream">About</a>
+        <a href="#faq" class="nav-link py-2 px-2 rounded-lg hover:bg-cream">FAQ</a>
+        <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+           class="mt-2 inline-flex items-center justify-center gap-2 bg-teal text-white font-heading font-semibold px-5 py-2.5 rounded-full">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i> Shop on Etsy
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="relative bg-navy-900 text-white overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
+  <div class="blob w-96 h-96 bg-teal top-[-6rem] right-[-6rem]"></div>
+  <div class="blob w-72 h-72 bg-sunny bottom-[-4rem] left-[-4rem]"></div>
+
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center">
+    <div>
+      <span class="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-sunny-light text-xs font-semibold tracking-wide uppercase px-4 py-1.5 rounded-full mb-6">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+        Instant Digital Downloads
+      </span>
+      <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6">
+        Creative Coloring Books &amp; <span class="text-teal">Educational Workbooks</span> for Curious Minds
+      </h1>
+      <p class="text-lg text-white/75 mb-10 max-w-xl">
+        Beautifully designed, print-at-home PDFs — from anime and superhero coloring adventures to math, flags,
+        and geography workbooks that make learning fun. Download instantly. Print forever.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-white hover:text-navy-900 text-white font-heading font-semibold text-base px-8 py-4 rounded-full shadow-lg shadow-teal/30 transition-all hover:-translate-y-0.5">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          Shop on Etsy
+        </a>
+        <a href="#coloring-books"
+           class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-heading font-semibold text-base px-8 py-4 rounded-full transition-all">
+          Browse Collections
+          <i data-lucide="arrow-down" class="w-5 h-5"></i>
+        </a>
+      </div>
+      <div class="flex items-center gap-8 mt-12 text-sm text-white/60">
+        <div class="flex items-center gap-2"><i data-lucide="download" class="w-4 h-4 text-teal"></i> Instant PDF delivery</div>
+        <div class="flex items-center gap-2"><i data-lucide="printer" class="w-4 h-4 text-sunny"></i> Print unlimited copies</div>
+      </div>
+    </div>
+
+    <!-- Hero mockup frame -->
+    <div class="relative flex justify-center lg:justify-end">
+      <div class="relative w-72 sm:w-80">
+        <div class="absolute -top-6 -left-8 w-40 h-56 bg-sunny/90 rounded-2xl shadow-2xl rotate-[-10deg] hidden sm:flex items-center justify-center">
+          <i data-lucide="palette" class="w-14 h-14 text-navy-900/70"></i>
+        </div>
+        <div class="relative z-10 w-full aspect-[3/4] bg-gradient-to-br from-teal to-navy-700 rounded-2xl shadow-2xl border-4 border-white/10 flex flex-col items-center justify-center text-center p-8 rotate-[3deg]">
+          <i data-lucide="book-open" class="w-16 h-16 text-white/90 mb-4"></i>
+          <span class="font-heading font-bold text-xl text-white leading-snug">Your Book Cover<br/>Goes Here</span>
+          <span class="mt-3 text-xs uppercase tracking-widest text-white/60">Printable PDF Mockup</span>
+        </div>
+        <div class="absolute -bottom-6 -right-6 w-28 h-28 bg-white rounded-2xl shadow-xl rotate-[8deg] flex items-center justify-center z-20">
+          <i data-lucide="stars" class="w-10 h-10 text-sunny"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY DIGITAL ============ -->
+<section id="why-digital" class="py-24 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-teal font-heading font-semibold text-sm uppercase tracking-widest">Why Digital?</span>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-navy-900 mt-3">Print at home, enjoy forever</h2>
+      <p class="text-navy-900/60 mt-4">Every product in the shop is a downloadable PDF — designed to give you more value and flexibility than a printed book ever could.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow border border-navy-900/5">
+        <div class="w-14 h-14 rounded-xl bg-teal/10 flex items-center justify-center mb-6">
+          <i data-lucide="zap" class="w-7 h-7 text-teal"></i>
+        </div>
+        <h3 class="font-heading font-semibold text-xl mb-2">Instant Access</h3>
+        <p class="text-navy-900/60">No waiting for shipping — download your files immediately after purchase and start creating within minutes.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow border border-navy-900/5">
+        <div class="w-14 h-14 rounded-xl bg-sunny/15 flex items-center justify-center mb-6">
+          <i data-lucide="repeat" class="w-7 h-7 text-sunny"></i>
+        </div>
+        <h3 class="font-heading font-semibold text-xl mb-2">Unlimited Printing</h3>
+        <p class="text-navy-900/60">Buy once, print as many times as you like. Perfect for extra practice sheets, classrooms, or sharing with siblings.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow border border-navy-900/5">
+        <div class="w-14 h-14 rounded-xl bg-teal/10 flex items-center justify-center mb-6">
+          <i data-lucide="leaf" class="w-7 h-7 text-teal"></i>
+        </div>
+        <h3 class="font-heading font-semibold text-xl mb-2">Eco-Friendly &amp; Affordable</h3>
+        <p class="text-navy-900/60">No shipping fees, no packaging waste, no transit footprint — just an affordable file that's kind to your wallet and the planet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECENT RELEASES / CATEGORIES ============ -->
+<section id="shop" class="py-24">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-teal font-heading font-semibold text-sm uppercase tracking-widest">Recent Releases</span>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-navy-900 mt-3">Explore the Collections</h2>
+      <p class="text-navy-900/60 mt-4">From imaginative coloring adventures to hands-on learning workbooks — there's something for every curious mind.</p>
+    </div>
+
+    <!-- Tab switcher -->
+    <div class="flex justify-center mb-14">
+      <div class="inline-flex bg-cream p-1.5 rounded-full border border-navy-900/10">
+        <button data-tab="coloring" class="tab-btn active font-heading font-semibold text-sm px-6 py-2.5 rounded-full transition-colors">
+          Coloring Studio
+        </button>
+        <button data-tab="learning" class="tab-btn font-heading font-semibold text-sm px-6 py-2.5 rounded-full transition-colors">
+          Learning Lab
+        </button>
+      </div>
+    </div>
+
+    <!-- Coloring Studio -->
+    <div id="coloring-books" class="scroll-mt-24">
+      <div class="tab-panel active grid sm:grid-cols-2 lg:grid-cols-3 gap-8" data-panel="coloring">
+
+        <div class="book-card bg-white rounded-2xl overflow-hidden border border-navy-900/5 shadow-sm">
+          <div class="aspect-[4/3] bg-gradient-to-br from-navy-700 to-teal flex flex-col items-center justify-center text-white relative">
+            <span class="absolute top-3 right-3 bg-sunny text-navy-900 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">PDF</span>
+            <i data-lucide="sparkle" class="w-12 h-12 mb-3 text-white/90"></i>
+            <span class="font-heading font-bold text-lg">Anime Dreams</span>
+            <span class="text-xs text-white/70 mt-1">Coloring Book</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-semibold text-lg mb-1">Anime-Inspired Coloring Collection</h3>
+            <p class="text-navy-900/60 text-sm mb-4">30 original pages of dynamic anime-style characters and scenes, ready to print and color.</p>
+            <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 text-navy-900 font-heading font-semibold text-sm hover:text-teal transition-colors">
+              View on Etsy <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="book-card bg-white rounded-2xl overflow-hidden border border-navy-900/5 shadow-sm">
+          <div class="aspect-[4/3] bg-gradient-to-br from-navy-900 to-navy-700 flex flex-col items-center justify-center text-white relative">
+            <span class="absolute top-3 right-3 bg-sunny text-navy-900 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">PDF</span>
+            <i data-lucide="zap" class="w-12 h-12 mb-3 text-sunny"></i>
+            <span class="font-heading font-bold text-lg">Hero Squad</span>
+            <span class="text-xs text-white/70 mt-1">Coloring Book</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-semibold text-lg mb-1">Epic Superhero Style</h3>
+            <p class="text-navy-900/60 text-sm mb-4">Action-packed pages starring bold, muscular heroes and villains in dramatic comic-book poses.</p>
+            <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 text-navy-900 font-heading font-semibold text-sm hover:text-teal transition-colors">
+              View on Etsy <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="book-card bg-white rounded-2xl overflow-hidden border border-navy-900/5 shadow-sm">
+          <div class="aspect-[4/3] bg-gradient-to-br from-teal to-sunny flex flex-col items-center justify-center text-white relative">
+            <span class="absolute top-3 right-3 bg-white text-navy-900 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">PDF</span>
+            <i data-lucide="castle" class="w-12 h-12 mb-3 text-white"></i>
+            <span class="font-heading font-bold text-lg">Mythic Realms</span>
+            <span class="text-xs text-white/80 mt-1">Coloring Book</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-semibold text-lg mb-1">Fantasy &amp; Myth Creatures</h3>
+            <p class="text-navy-900/60 text-sm mb-4">Dragons, castles, and enchanted forests fill this whimsical fantasy coloring adventure.</p>
+            <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 text-navy-900 font-heading font-semibold text-sm hover:text-teal transition-colors">
+              View on Etsy <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Learning Lab -->
+    <div id="workbooks" class="scroll-mt-24">
+      <div class="tab-panel grid sm:grid-cols-2 lg:grid-cols-3 gap-8" data-panel="learning">
+
+        <div class="book-card bg-white rounded-2xl overflow-hidden border border-navy-900/5 shadow-sm">
+          <div class="aspect-[4/3] bg-gradient-to-br from-navy-900 to-teal flex flex-col items-center justify-center text-white relative">
+            <span class="absolute top-3 right-3 bg-sunny text-navy-900 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">PDF</span>
+            <i data-lucide="calculator" class="w-12 h-12 mb-3 text-white/90"></i>
+            <span class="font-heading font-bold text-lg">Number Ninjas</span>
+            <span class="text-xs text-white/70 mt-1">Workbook</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-semibold text-lg mb-1">Kids' Math Exercises</h3>
+            <p class="text-navy-900/60 text-sm mb-4">Fun, gradual math practice sheets covering addition, subtraction and early problem solving.</p>
+            <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 text-navy-900 font-heading font-semibold text-sm hover:text-teal transition-colors">
+              View on Etsy <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="book-card bg-white rounded-2xl overflow-hidden border border-navy-900/5 shadow-sm">
+          <div class="aspect-[4/3] bg-gradient-to-br from-sunny to-navy-700 flex flex-col items-center justify-center text-white relative">
+            <span class="absolute top-3 right-3 bg-white text-navy-900 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">PDF</span>
+            <i data-lucide="flag" class="w-12 h-12 mb-3 text-white"></i>
+            <span class="font-heading font-bold text-lg">Flags of the World</span>
+            <span class="text-xs text-white/80 mt-1">Workbook</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-semibold text-lg mb-1">World Flag Trivia</h3>
+            <p class="text-navy-900/60 text-sm mb-4">Quiz sheets and matching activities that turn flag memorization into a fun challenge.</p>
+            <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 text-navy-900 font-heading font-semibold text-sm hover:text-teal transition-colors">
+              View on Etsy <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="book-card bg-white rounded-2xl overflow-hidden border border-navy-900/5 shadow-sm">
+          <div class="aspect-[4/3] bg-gradient-to-br from-teal to-navy-900 flex flex-col items-center justify-center text-white relative">
+            <span class="absolute top-3 right-3 bg-sunny text-navy-900 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">PDF</span>
+            <i data-lucide="globe" class="w-12 h-12 mb-3 text-white/90"></i>
+            <span class="font-heading font-bold text-lg">Explore Earth</span>
+            <span class="text-xs text-white/70 mt-1">Workbook</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-semibold text-lg mb-1">Geography Workbook</h3>
+            <p class="text-navy-900/60 text-sm mb-4">Continents, capitals and landmarks explained through maps, puzzles and fill-in activities.</p>
+            <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 text-navy-900 font-heading font-semibold text-sm hover:text-teal transition-colors">
+              View on Etsy <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="py-24 bg-navy-900 text-white relative overflow-hidden">
+  <div class="blob w-80 h-80 bg-teal top-1/2 -translate-y-1/2 right-[-5rem]"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="flex justify-center lg:justify-start">
+      <div class="relative">
+        <div class="w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-br from-teal to-sunny p-2">
+          <div class="w-full h-full rounded-full bg-white p-2">
+            <img src="assets/logo.jpg" alt="Made by Maks Creative Studio" class="w-full h-full rounded-full object-cover">
+          </div>
+        </div>
+        <div class="absolute -bottom-4 -right-4 bg-sunny text-navy-900 rounded-full w-20 h-20 flex flex-col items-center justify-center shadow-xl">
+          <span class="font-heading font-script text-2xl leading-none">Hi!</span>
+          <span class="text-[10px] font-semibold">I'm Maks</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <span class="text-sunny font-heading font-semibold text-sm uppercase tracking-widest">About the Creator</span>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3 mb-6">Hi, I'm Maks — welcome to the studio</h2>
+      <p class="text-white/75 mb-4 leading-relaxed">
+        Made by Maks Creative Studio started with two simple loves: a lifelong obsession with digital art —
+        anime, comics, and fantastical worlds — and a genuine passion for making learning feel like play.
+      </p>
+      <p class="text-white/75 mb-4 leading-relaxed">
+        Every coloring book is hand-illustrated with the same energy I'd want on my own sketchbook page, and every
+        workbook is built the way I wish my own school worksheets had looked: clear, colorful, and actually fun
+        to sit down with.
+      </p>
+      <p class="text-white/75 leading-relaxed">
+        Whether you're a parent, a teacher, or a big kid at heart who loves to color, thank you for being here.
+        I hope these pages bring a little more creativity and curiosity into your home. 💙
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="py-24 bg-cream">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8">
+    <div class="text-center mb-14">
+      <span class="text-teal font-heading font-semibold text-sm uppercase tracking-widest">FAQ</span>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-navy-900 mt-3">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="space-y-4" id="faq-list">
+
+      <div class="faq-item bg-white rounded-2xl border border-navy-900/10 overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-heading font-semibold text-navy-900">How do I get my files?</span>
+          <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-teal shrink-0"></i>
+        </button>
+        <div class="faq-panel px-6">
+          <p class="text-navy-900/65 pb-5">
+            Right after your purchase is complete, Etsy will send you an instant download link by email — and it's
+            also always available under "Purchases and Reviews" in your Etsy account. No waiting, no shipping.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white rounded-2xl border border-navy-900/10 overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-heading font-semibold text-navy-900">Can I print these multiple times?</span>
+          <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-teal shrink-0"></i>
+        </button>
+        <div class="faq-panel px-6">
+          <p class="text-navy-900/65 pb-5">
+            Yes! Once purchased, you're welcome to print copies for your own personal household or classroom use
+            as many times as you like. It's one of the best perks of going digital.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white rounded-2xl border border-navy-900/10 overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-heading font-semibold text-navy-900">What format are the books in?</span>
+          <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-teal shrink-0"></i>
+        </button>
+        <div class="faq-panel px-6">
+          <p class="text-navy-900/65 pb-5">
+            Every product is delivered as a high-resolution, ready-to-print PDF, optimized for standard home
+            printers on regular US Letter or A4 paper.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white rounded-2xl border border-navy-900/10 overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-heading font-semibold text-navy-900">Do you offer refunds on digital items?</span>
+          <i data-lucide="chevron-down" class="faq-chevron w-5 h-5 text-teal shrink-0"></i>
+        </button>
+        <div class="faq-panel px-6">
+          <p class="text-navy-900/65 pb-5">
+            Because these are instant-download digital files, all sales are final. If a file ever arrives corrupted
+            or won't open, just message the shop on Etsy and I'll get it sorted right away.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-navy-950 text-white pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+
+      <div class="lg:col-span-2">
+        <a href="#home" class="flex items-center gap-3 mb-4">
+          <img src="assets/logo.jpg" alt="Made by Maks Creative Studio logo" class="h-11 w-11 rounded-full object-cover border-2 border-white/10">
+          <span class="font-heading font-bold text-lg">Made by Maks Creative Studio</span>
+        </a>
+        <p class="text-white/60 max-w-sm mb-6">Creative coloring books &amp; educational workbooks for curious minds — instant digital downloads, printed at home, enjoyed forever.</p>
+        <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 bg-teal hover:bg-sunny hover:text-navy-900 text-white font-heading font-semibold px-6 py-3 rounded-full transition-colors">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          Visit My Etsy Shop
+        </a>
+      </div>
+
+      <div>
+        <h4 class="font-heading font-semibold mb-4 text-sm uppercase tracking-widest text-white/50">Explore</h4>
+        <ul class="space-y-2 text-white/70">
+          <li><a href="#coloring-books" class="hover:text-teal transition-colors">Coloring Books</a></li>
+          <li><a href="#workbooks" class="hover:text-teal transition-colors">Educational Workbooks</a></li>
+          <li><a href="#about" class="hover:text-teal transition-colors">About</a></li>
+          <li><a href="#faq" class="hover:text-teal transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-heading font-semibold mb-4 text-sm uppercase tracking-widest text-white/50">Follow Along</h4>
+        <div class="flex gap-3">
+          <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/10 hover:bg-teal flex items-center justify-center transition-colors">
+            <i data-lucide="instagram" class="w-4 h-4"></i>
+          </a>
+          <a href="#" aria-label="Pinterest" class="w-10 h-10 rounded-full bg-white/10 hover:bg-teal flex items-center justify-center transition-colors">
+            <i data-lucide="pin" class="w-4 h-4"></i>
+          </a>
+          <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/10 hover:bg-teal flex items-center justify-center transition-colors">
+            <i data-lucide="facebook" class="w-4 h-4"></i>
+          </a>
+          <a href="https://www.etsy.com/shop/MadeByMaksStudio" target="_blank" rel="noopener noreferrer" aria-label="Etsy Shop" class="w-10 h-10 rounded-full bg-white/10 hover:bg-teal flex items-center justify-center transition-colors">
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/50">
+      <p>&copy; <span id="year"></span> Made by Maks Creative Studio. All rights reserved.</p>
+      <p>Designed with 💙 for curious minds everywhere.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Initialize icons
+  lucide.createIcons();
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px';
+    mobileMenu.style.maxHeight = isOpen ? '0px' : mobileMenu.scrollHeight + 'px';
+  });
+  document.querySelectorAll('#mobile-menu .nav-link, #mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => { mobileMenu.style.maxHeight = '0px'; });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const trigger = item.querySelector('.faq-trigger');
+    trigger.addEventListener('click', () => {
+      const wasActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+      if (!wasActive) item.classList.add('active');
+    });
+  });
+
+  // Category tabs (Coloring Studio / Learning Lab)
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+    });
+  });
+
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
